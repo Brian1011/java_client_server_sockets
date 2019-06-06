@@ -32,7 +32,6 @@ public class SocketServer {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             System.out.println("Connection EStablished");
             
-            
             String inputLine, outputLine;
             
             //Initiate conversation with client
