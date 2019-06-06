@@ -5,6 +5,9 @@
  */
 package project;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -19,10 +22,32 @@ public class SocketServer {
     */
     public static void main(String[]args){
         try{
-            //create a server socket
+            //create a server socket and wait for a connection
             ServerSocket ss = new ServerSocket(9806);
-            Socket sos = ss.accept();
+            //Wait for connection and create a socket object
+            Socket clientSocket = ss.accept();
+            
+            //send and recieve from client
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             System.out.println("Connection EStablished");
+            
+            
+            String inputLine, outputLine;
+            
+            //Initiate conversation with client
+            ServerProtocol sprotocol = new ServerProtocol();
+            outputLine = sprotocol.processInput(null);
+            out.println(outputLine);
+            
+            //Do a while loop to keep the conversation going
+            while((inputLine = in.readLine()) != null){
+                outputLine = sprotocol.processInput(inputLine);
+                out.println(outputLine);
+                if(outputLine.equals("Bye."))
+                    break;
+            }
+            
         }catch(Exception e){
             e.printStackTrace();
         }

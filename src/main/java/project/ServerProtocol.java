@@ -10,5 +10,10 @@ package project;
  * @author brian
  */
 public class ServerProtocol {
+    //This class describes how your server reacts to the messages of your client 
+    public String processInput(String theInput){
+        String theOutput = "yellow yellow";
+        return theOutput;
+    }
     
 }
