@@ -13,6 +13,9 @@ public class ServerProtocol {
     //This class describes how your server reacts to the messages of your client 
     public String processInput(String theInput){
         String theOutput = "yellow yellow";
+        if (theInput.equals("123")){
+            theOutput = "Bye.";
+        }
         return theOutput;
     }
     
