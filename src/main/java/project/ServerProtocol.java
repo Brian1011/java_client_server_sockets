@@ -13,41 +13,39 @@ public class ServerProtocol {
     //This class describes how your server reacts to the messages of your client
     int status = 0;
     String toycode, toyname, descrption;
+    String [] questions = {"Toy Code", "Toy Name","Toy Description","Toy Price","Date of Manufacture","Batch Number","Company Name","Street Adress","Zip Code","Country","Message"};
+    String [] answers = {"","","","","","","","","","",""};
     public String processInput(String theInput){
         String theOutput = "yellow yellow";
+         // The beginning of the program
         if (theInput == null){
-           // The beginning of the program
-           theOutput = "Enter Toy Code";
+           theOutput = questions[status];
            status = 1;
         }
         else if(theInput.isBlank()){
-            theOutput = "Input cannot be empty";
+            theOutput = "Input cannot be empty. "+questions[status-1];
+            answers[status-1] = theInput;
         }
         else if(theInput.equals("123")){
             theOutput = "Bye.";
         }
-        // the conversation begins
-        else if(status == 1){
-            toycode = theInput;
-            theOutput = "Enter Toyname";
-            status = status+1;
-        }else if(status == 2){
-            toyname = theInput;
-            theOutput="Done";
-            status = status + 1;
-        } else if(status == 3){
-            //the program is done
-            finalOutput();
-            //theOutput = "Toy Code: "+toycode+"\n Toy Name: "+toyname;
+        //continue asking questions and receiving answers    
+        else if(status != questions.length){
+            answers[status-1] = theInput;
+            theOutput = questions[status];
+            status = status+1; 
+        //the last question
+        } else if(status == questions.length){
+            answers[status-1] = theInput;
+            //finalOutput();
         }
-        
         return theOutput;
     }
     
     //display all the items sent by the client
-    public String finalOutput(){
+    public String[] finalOutput(){
         String report = "Toy Code: "+toycode+"\n Toy Name: "+toyname;
-        return report;
+        return answers;
     }
     
 }

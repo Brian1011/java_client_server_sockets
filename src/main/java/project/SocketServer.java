@@ -43,10 +43,17 @@ public class SocketServer {
             while((inputLine = in.readLine()) != null){
                 outputLine = sprotocol.processInput(inputLine);
                 out.println(outputLine);
-                if(outputLine.equals("Bye."))
-                    break;
+                //System.out.println("OUTPUT"+inputLine);
+                //End coversation and display all the inputs send by the user
+                if(outputLine.equals("Bye.")){
+                     String [] client_output = sprotocol.finalOutput();
+                     for(int i=0; i<client_output.length; i++){
+                         System.out.println(client_output[i]+"\n");
+                     }   
+                     System.out.println("Last"+client_output[10]+"\n First: "+client_output[0]);
+                     break;
+                }      
             }
-            
         }catch(Exception e){
             e.printStackTrace();
         }
