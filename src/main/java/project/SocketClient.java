@@ -33,7 +33,7 @@ public class SocketClient {
             String fromServer, fromUser;
             
             while((fromServer = in.readLine()) != null){
-                System.out.println("Server "+fromServer);
+                System.out.println("Server: "+fromServer);
                 if(fromServer.equals("Bye."))
                     break;
                 
@@ -42,6 +42,7 @@ public class SocketClient {
                     System.out.println("Client: "+fromUser);
                     out.println(fromUser);
                 }
+                    
             }
         }catch(Exception e){
             e.printStackTrace();
