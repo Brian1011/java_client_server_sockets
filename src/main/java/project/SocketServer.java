@@ -51,10 +51,12 @@ public class SocketServer {
                      String [] client_output = sprotocol.finalOutput();
                     for (String client_output1 : client_output) {
                         System.out.println(client_output1 + "\n");
-                    }   
-                     break;
+                    }
+                    JOptionPane.showConfirmDialog(null, client_output, "SERVER SIDE",JOptionPane.INFORMATION_MESSAGE);
+                    break;
                 }else if(outputLine.equals("Failed Transaction. Bye.")){
                     System.out.println("Failed Transaction :-(");
+                    JOptionPane.showMessageDialog(null, outputLine,"SERVER SIDE ERROR",JOptionPane.ERROR_MESSAGE);
                     break;
                 }      
             }

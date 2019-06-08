@@ -43,7 +43,7 @@ public class SocketClient {
             String fromServer, fromUser;
             
             while((fromServer = in.readLine()) != null){
-                userInput = JOptionPane.showInputDialog(null,fromServer);
+                userInput = JOptionPane.showInputDialog(null,fromServer,"Client side", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("Server: "+fromServer);
                 //stop program
                 if(fromServer.contains("Bye."))
