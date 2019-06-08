@@ -5,6 +5,8 @@
  */
 package project;
 
+import java.util.Arrays;
+
 /**
  *
  * @author brian
@@ -16,7 +18,7 @@ public class ServerProtocol {
     String [] questions = {"Toy Code", "Toy Name","Toy Description","Toy Price","Date of Manufacture","Batch Number","Company Name","Street Adress","Zip Code","Country","Message"};
     String [] answers = {"","","","","","","","","","",""};
     public String processInput(String theInput){
-        String theOutput = "yellow yellow";
+        String theOutput = "You typed this: \n";
          // The beginning of the program
         if (theInput == null){
            theOutput = questions[status];
@@ -26,18 +28,28 @@ public class ServerProtocol {
             theOutput = "Input cannot be empty. "+questions[status-1];
             answers[status-1] = theInput;
         }
+        /*
         else if(theInput.equals("123")){
             theOutput = "Bye.";
         }
+        */
         //continue asking questions and receiving answers    
-        else if(status != questions.length){
+        else if(status < questions.length){
             answers[status-1] = theInput;
             theOutput = questions[status];
             status = status+1; 
         //the last question
         } else if(status == questions.length){
             answers[status-1] = theInput;
-            //finalOutput();
+            theOutput = Arrays.toString(finalOutput());
+            status = status+1;
+        //after the last answer from client    
+        } else if (status == 12){
+            if(theInput.contains("yes")){
+                theOutput = "Successful Transaction. Bye.";
+            }else{
+                theOutput = "Failed Transaction. Bye.";
+            }
         }
         return theOutput;
     }

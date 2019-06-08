@@ -6,6 +6,7 @@
 package project;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -43,18 +44,20 @@ public class SocketServer {
             while((inputLine = in.readLine()) != null){
                 outputLine = sprotocol.processInput(inputLine);
                 out.println(outputLine);
-                //System.out.println("OUTPUT"+inputLine);
                 //End coversation and display all the inputs send by the user
-                if(outputLine.equals("Bye.")){
+                if(outputLine.equals("Successful Transaction. Bye.")){
                      String [] client_output = sprotocol.finalOutput();
-                     for(int i=0; i<client_output.length; i++){
-                         System.out.println(client_output[i]+"\n");
-                     }   
+                    for (String client_output1 : client_output) {
+                        System.out.println(client_output1 + "\n");
+                    }   
                      break;
+                }else if(outputLine.equals("Failed Transaction. Bye.")){
+                    System.out.println("Failed Transaction :-(");
+                    break;
                 }      
             }
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(IOException e){
+            System.out.println(e);
         }
     }
 }

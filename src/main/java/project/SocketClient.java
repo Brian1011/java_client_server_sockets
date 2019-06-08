@@ -39,7 +39,7 @@ public class SocketClient {
             while((fromServer = in.readLine()) != null){
                 System.out.println("Server: "+fromServer);
                 //stop program
-                if(fromServer.equals("Bye."))
+                if(fromServer.contains("Bye."))
                     break;
                 //continue with conversation
                 fromUser = stdIn.readLine();
@@ -49,7 +49,6 @@ public class SocketClient {
                     out.println(UserResponse);
                 }
             }
-            //Timestamp clientTimestamp = new Timestamp(System.currentTimeMillis());
             System.out.println("Client ID: "+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis()));
         }catch(IOException e){
             System.out.println(e);
