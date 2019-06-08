@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,6 +44,7 @@ public class SocketServer {
             //Do a while loop to keep the conversation going
             while((inputLine = in.readLine()) != null){
                 outputLine = sprotocol.processInput(inputLine);
+                //JOptionPane.showMessageDialog(null, outputLine);
                 out.println(outputLine);
                 //End coversation and display all the inputs send by the user
                 if(outputLine.equals("Successful Transaction. Bye.")){

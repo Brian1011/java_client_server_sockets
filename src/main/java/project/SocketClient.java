@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Timestamp;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +27,7 @@ public class SocketClient {
     public static void main(String[]args){
         int count = 0; //keep count of conversation
         String clientAnswers = "default";
+        String userInput = "";
         try {
             System.out.println("Client started");
             Socket soc = new Socket("localhost",9806);
@@ -40,12 +43,14 @@ public class SocketClient {
             String fromServer, fromUser;
             
             while((fromServer = in.readLine()) != null){
+                userInput = JOptionPane.showInputDialog(null,fromServer);
                 System.out.println("Server: "+fromServer);
                 //stop program
                 if(fromServer.contains("Bye."))
                     break;
                 //continue with conversation
-                fromUser = stdIn.readLine();
+                //fromUser = stdIn.readLine();
+                fromUser = userInput;
                 String UserResponse = cProtocol.processServerMessage(fromServer, fromUser, soc);
                 if(fromUser!=null){
                     System.out.println("Client: "+UserResponse);
@@ -59,7 +64,7 @@ public class SocketClient {
                 }
                 count = count + 1;
             }
-            if(count == 12 && fromServer.contains("We have receieved all your inputs. Any comment.")){
+            if(count == 12 && fromServer.equals("We have receieved all your inputs. Any comment.")){
                 System.out.println("ANSWERS"+clientAnswers);
                 out.println(clientAnswers);
             }
