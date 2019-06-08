@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.Timestamp;
 
 /**
  *
@@ -35,15 +36,20 @@ public class SocketClient {
             while((fromServer = in.readLine()) != null){
                 System.out.println("Server: "+fromServer);
                 if(fromServer.equals("Bye."))
-                    break;
-                
-                fromUser = stdIn.readLine();
+                    break;     
+                if(fromServer.contains("Message")){
+                    fromUser = stdIn.readLine()+"Unique code"+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis());
+                }else{
+                    fromUser = stdIn.readLine();
+                }
                 if(fromUser!=null){
+                        //fromUser = stdIn.readLine()+"Unique code"+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis());
                     System.out.println("Client: "+fromUser);
                     out.println(fromUser);
                 }
-                    
             }
+            //Timestamp clientTimestamp = new Timestamp(System.currentTimeMillis());
+            System.out.println("Client ID: "+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis()));
         }catch(Exception e){
             e.printStackTrace();
         }
