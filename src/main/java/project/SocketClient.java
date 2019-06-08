@@ -21,7 +21,10 @@ public class SocketClient {
     This class connects to the server and communicates 
     with it according to the Client Protocol 
     */
+    
     public static void main(String[]args){
+        int count = 0; //keep count of conversation
+        String clientAnswers = "default";
         try {
             System.out.println("Client started");
             Socket soc = new Socket("localhost",9806);
@@ -47,7 +50,18 @@ public class SocketClient {
                 if(fromUser!=null){
                     System.out.println("Client: "+UserResponse);
                     out.println(UserResponse);
+                    //send all inputs as one transaction
+                    if(count == 11 && fromUser.contains("yes")){
+                        clientAnswers = fromServer;
+                        System.out.println("LAST CONVO"+fromServer);
+                        out.println(fromServer);  
+                    }
                 }
+                count = count + 1;
+            }
+            if(count == 12 && fromServer.contains("We have receieved all your inputs. Any comment.")){
+                System.out.println("ANSWERS"+clientAnswers);
+                out.println(clientAnswers);
             }
             System.out.println("Client ID: "+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis()));
         }catch(IOException e){

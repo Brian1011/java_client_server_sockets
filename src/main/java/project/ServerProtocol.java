@@ -28,11 +28,6 @@ public class ServerProtocol {
             theOutput = "Input cannot be empty. "+questions[status-1];
             answers[status-1] = theInput;
         }
-        /*
-        else if(theInput.equals("123")){
-            theOutput = "Bye.";
-        }
-        */
         //continue asking questions and receiving answers    
         else if(status < questions.length){
             answers[status-1] = theInput;
@@ -46,10 +41,15 @@ public class ServerProtocol {
         //after the last answer from client    
         } else if (status == 12){
             if(theInput.contains("yes")){
-                theOutput = "Successful Transaction. Bye.";
+                theOutput = "We have receieved all your inputs. Any comment.";
+                status = status + 1;
             }else{
                 theOutput = "Failed Transaction. Bye.";
             }
+        } else if(status == 13){
+        // take the input arrays   
+            theOutput = "Successful Transaction. Bye."; 
+            answers = theInput.split(",");
         }
         return theOutput;
     }
