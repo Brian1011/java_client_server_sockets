@@ -50,7 +50,6 @@ public class SocketServer {
                      for(int i=0; i<client_output.length; i++){
                          System.out.println(client_output[i]+"\n");
                      }   
-                     System.out.println("Last"+client_output[10]+"\n First: "+client_output[0]);
                      break;
                 }      
             }

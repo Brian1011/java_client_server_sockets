@@ -6,6 +6,7 @@
 package project;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -28,6 +29,8 @@ public class SocketClient {
             BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
             //Send to server with auto flash
             PrintWriter out = new PrintWriter(soc.getOutputStream(), true);
+            //Client protocol
+            ClientProtocol cProtocol = new ClientProtocol();
            
             //Read from keyboard
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -35,23 +38,35 @@ public class SocketClient {
             
             while((fromServer = in.readLine()) != null){
                 System.out.println("Server: "+fromServer);
+                //stop program
                 if(fromServer.equals("Bye."))
-                    break;     
-                if(fromServer.contains("Message")){
-                    fromUser = stdIn.readLine()+"Unique code"+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis());
-                }else{
-                    fromUser = stdIn.readLine();
-                }
+                    break;
+                //continue with conversation
+                fromUser = stdIn.readLine();
+                String UserResponse = cProtocol.processServerMessage(fromServer, fromUser, soc);
                 if(fromUser!=null){
-                        //fromUser = stdIn.readLine()+"Unique code"+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis());
-                    System.out.println("Client: "+fromUser);
-                    out.println(fromUser);
+                    System.out.println("Client: "+UserResponse);
+                    out.println(UserResponse);
                 }
             }
             //Timestamp clientTimestamp = new Timestamp(System.currentTimeMillis());
             System.out.println("Client ID: "+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis()));
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(IOException e){
+            System.out.println(e);
         }
     }
 }
+
+/*
+if(fromServer.equals("Bye."))
+    break;     
+if(fromServer.contains("Message")){
+    fromUser = stdIn.readLine()+"Unique code"+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis());
+}else{
+    fromUser = stdIn.readLine();
+}
+if(fromUser!=null){
+        //fromUser = stdIn.readLine()+"Unique code"+soc.getLocalSocketAddress()+"/"+new Timestamp(System.currentTimeMillis());
+    System.out.println("Client: "+fromUser);
+    out.println(fromUser);
+}*/

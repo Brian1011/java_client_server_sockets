@@ -44,7 +44,6 @@ public class ServerProtocol {
     
     //display all the items sent by the client
     public String[] finalOutput(){
-        String report = "Toy Code: "+toycode+"\n Toy Name: "+toyname;
         return answers;
     }
     
