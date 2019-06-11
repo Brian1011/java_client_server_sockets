@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Timestamp;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,7 +29,8 @@ public class SocketClient {
         String userInput = "";
         try {
             System.out.println("Client started");
-            Socket soc = new Socket("localhost",9806);
+            Socket soc = new Socket("192.168.43.167",9806);
+            //Socket soc = new Socket("localhost",9806);
             //Read from server
             BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
             //Send to server with auto flash

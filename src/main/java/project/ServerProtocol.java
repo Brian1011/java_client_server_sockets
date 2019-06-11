@@ -49,7 +49,7 @@ public class ServerProtocol {
         } else if(status == 13){
         // take the input arrays   
             theOutput = "Successful Transaction. Bye."; 
-            answers = theInput.split(",");
+            //answers = theInput.split(",");
         }
         return theOutput;
     }
